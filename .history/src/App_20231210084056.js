@@ -109,27 +109,17 @@ function List({ item, onToggleItem, onDelete }) {
   );
 }
 function Stats({ items }) {
-  if (!items.length)
-    return (
-      <div className="stats">
-        {" "}
-        Start adding some items to your packing list 🏠
-      </div>
-    );
-
+  console.log("footer", items);
   const numItems = items.length;
   const numPacked = items.filter((item) => item.packed).length;
-  const percentage = Math.round((numPacked / numItems) * 100);
-  //console.log("footer", items);
+  const percent = (numPacked / numItems) * 100;
   return (
-    <footer className="stats" key={items.id}>
-      <em>
-        {percentage === 100
-          ? "you got everything! Ready to go ✈️"
-          : `
-        You have ${numItems} items on Your list, and you already packed
-        ${numPacked} ( ${percentage}% )`}
-      </em>
-    </footer>
+    <div className="stats" key={items.id}>
+      <h3>
+        {" "}
+        You have {numItems} items on Your list, and you already packed{" "}
+        {numPacked} ( {percent}% )
+      </h3>
+    </div>
   );
 }

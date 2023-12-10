@@ -1,3 +1,4 @@
+import { set } from "mongoose";
 import { useState } from "react";
 /* const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
@@ -14,23 +15,16 @@ export default function App() {
   function handleToggleItem(id) {
     setItems(
       items.map((item) =>
-        item.id === id ? { ...item, packed: !item.packed } : item
+        item.id === id ? { ...item, packed: !item.packed } : ""
       )
     );
-  }
-  function handleDelete(id) {
-    setItems(items.filter((item) => item.id !== id));
   }
   return (
     <div className="App">
       <Logo />
       <Form handleAddItems={handleAddItems} />
-      <PackingList
-        items={items}
-        onToggleItem={handleToggleItem}
-        onDelete={handleDelete}
-      />
-      <Stats items={items} />
+      <PackingList items={items} />
+      <Stats />
     </div>
   );
 }
@@ -46,10 +40,10 @@ function Form({ handleAddItems }) {
   function handleSubmit(event) {
     event.preventDefault();
 
+    console.log(event.target);
     if (!description) return;
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
-    console.log(event.target);
 
     handleAddItems(newItem);
     setDescription("");
@@ -79,57 +73,33 @@ function Form({ handleAddItems }) {
   );
 }
 
-function PackingList({ items, onToggleItem, onDelete }) {
+function PackingList({ items }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => (
-          <List
-            item={item}
-            key={item.id}
-            onToggleItem={onToggleItem}
-            onDelete={onDelete}
-          />
+          <List item={item} key={item.id} />
         ))}
       </ul>
     </div>
   );
 }
 
-function List({ item, onToggleItem, onDelete }) {
-  //console.log("list", item.packed);
+function List({ item }) {
   return (
     <li>
-      <input type="checkbox" onClick={() => onToggleItem(item.id)} />
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity} {item.description}
+      <span>
+        {item.quantity}
+        {item.description}
       </span>
-      <button onClick={() => onDelete(item.id)}>❌</button>
+      <button>❌</button>
     </li>
   );
 }
-function Stats({ items }) {
-  if (!items.length)
-    return (
-      <div className="stats">
-        {" "}
-        Start adding some items to your packing list 🏠
-      </div>
-    );
-
-  const numItems = items.length;
-  const numPacked = items.filter((item) => item.packed).length;
-  const percentage = Math.round((numPacked / numItems) * 100);
-  //console.log("footer", items);
+function Stats() {
   return (
-    <footer className="stats" key={items.id}>
-      <em>
-        {percentage === 100
-          ? "you got everything! Ready to go ✈️"
-          : `
-        You have ${numItems} items on Your list, and you already packed
-        ${numPacked} ( ${percentage}% )`}
-      </em>
-    </footer>
+    <div>
+      <h3> Viec hom nay cho de ngay mai</h3>
+    </div>
   );
 }
