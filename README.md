@@ -19,7 +19,8 @@ This React project serves as a basic travel list application, allowing users to 
 
 luaCopy code
 
-`react-travel-list/
+`react-travel-list/`
+
 |-- src/
 |   |-- components/
 |   |   |-- Form.js
@@ -33,7 +34,7 @@ luaCopy code
 |-- README.md
 |-- package.json
 |-- .gitignore
-|-- etc.` 
+|-- etc. 
 
 -   **`src/components/`**: Contains React components.
 -   **`src/hooks/`**: Contains custom React Hooks.
