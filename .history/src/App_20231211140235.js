@@ -29,11 +29,9 @@ export default function App() {
     );
   }
   const handleDelete = async (id) => {
-    await fetch("http://localhost:9000/notes/" + id, {
+    await fetch("http://localhost:8000/notes/" + id, {
       method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => console.log("delete: ", data));
+    });
     console.log("delet", items);
     const newItem = items.filter((item) => item.id !== id);
     setItems(newItem);
@@ -57,16 +55,20 @@ function Logo() {
   return <h1> ⏰ Travel List ⏱ </h1>;
 }
 const isFormValid = (item) => {
-  return item.description;
+  return item.description && item.quantity && item.packed;
 };
 function Form({ handleAddItems }) {
-  const initialFormState = {
+  // const noteSchema = Yup.object({
+  //   description: Yup.string().nullable(),
+  //   quantity: Yup.number(),
+  //   packed: false,
+  // });
+  const [notes, setNotes] = useState({
     id: undefined,
     description: "",
-    quantity: 1,
+    quantity: 0,
     packed: false,
-  };
-  const [notes, setNotes] = useState(initialFormState);
+  });
   //  const [description, setDescription] = useState("");
   //const [quantity, setQuantity] = useState(1);
 
@@ -76,17 +78,11 @@ function Form({ handleAddItems }) {
     //if (!notes) return;
 
     if (isFormValid(notes)) {
-      console.log("gdsgdsg");
       fetch("http://localhost:9000/notes", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(notes),
-      })
-        .then((res) => res.json())
-        .then((item) => {
-          handleAddItems(item);
-          setNotes(initialFormState);
-        });
+      });
     }
     /* 
     const newItem = { description, quantity, packed: false, id: Date.now() };
@@ -113,12 +109,10 @@ function Form({ handleAddItems }) {
       <input
         type="text"
         placeholder="item"
-        value={notes.description}
-        onChange={(event) =>
-          setNotes({ ...notes, description: event.target.value })
-        }
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
       />
-      <button type="submit">Add</button>
+      <button>Add</button>
     </form>
   );
 }

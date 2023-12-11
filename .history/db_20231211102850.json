@@ -1,0 +1,15 @@
+{
+  "notes": [{
+      "quantity": 4,
+      "description": "T-shirt"
+    },
+    {
+      "quantity": 6,
+      "description": "Saussette"
+    },
+    {
+      "quantity": 5,
+      "description": "shoes"
+    }
+  ]
+}

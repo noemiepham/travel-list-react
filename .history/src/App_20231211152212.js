@@ -29,11 +29,9 @@ export default function App() {
     );
   }
   const handleDelete = async (id) => {
-    await fetch("http://localhost:9000/notes/" + id, {
+    await fetch("http://localhost:8000/notes/" + id, {
       method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => console.log("delete: ", data));
+    });
     console.log("delet", items);
     const newItem = items.filter((item) => item.id !== id);
     setItems(newItem);
@@ -60,13 +58,12 @@ const isFormValid = (item) => {
   return item.description;
 };
 function Form({ handleAddItems }) {
-  const initialFormState = {
+  const [notes, setNotes] = useState({
     id: undefined,
     description: "",
     quantity: 1,
     packed: false,
-  };
-  const [notes, setNotes] = useState(initialFormState);
+  });
   //  const [description, setDescription] = useState("");
   //const [quantity, setQuantity] = useState(1);
 
@@ -84,8 +81,8 @@ function Form({ handleAddItems }) {
       })
         .then((res) => res.json())
         .then((item) => {
-          handleAddItems(item);
-          setNotes(initialFormState);
+          console.log("dddddd", item);
+          // handleAddItems(item)
         });
     }
     /* 
@@ -118,7 +115,7 @@ function Form({ handleAddItems }) {
           setNotes({ ...notes, description: event.target.value })
         }
       />
-      <button type="submit">Add</button>
+      <button>Add</button>
     </form>
   );
 }

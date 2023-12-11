@@ -60,13 +60,12 @@ const isFormValid = (item) => {
   return item.description;
 };
 function Form({ handleAddItems }) {
-  const initialFormState = {
+  const [notes, setNotes] = useState({
     id: undefined,
     description: "",
     quantity: 1,
     packed: false,
-  };
-  const [notes, setNotes] = useState(initialFormState);
+  });
   //  const [description, setDescription] = useState("");
   //const [quantity, setQuantity] = useState(1);
 
@@ -84,8 +83,8 @@ function Form({ handleAddItems }) {
       })
         .then((res) => res.json())
         .then((item) => {
+          console.log("dddddd", item);
           handleAddItems(item);
-          setNotes(initialFormState);
         });
     }
     /* 

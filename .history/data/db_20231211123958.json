@@ -1,0 +1,43 @@
+{
+  "notes": [{
+      "id": 1,
+      "quantity": 4,
+      "description": "T-shirt",
+      "packed": false,
+    },
+    {
+      "id": 2,
+      "quantity": 6,
+      "description": "Saussette"
+    },
+    {
+      "id": 3,
+      "quantity": 5,
+      "description": "shoes"
+    },
+    {
+      "quantity": 1,
+      "description": "bvg",
+      "packed": false,
+      "id": 4
+    },
+    {
+      "quantity": "7",
+      "description": "ddsqsq",
+      "packed": false,
+      "id": 5
+    },
+    {
+      "quantity": "5",
+      "description": "sqsqsq",
+      "packed": false,
+      "id": 6
+    },
+    {
+      "quantity": "10",
+      "description": "T-shirt",
+      "packed": false,
+      "id": 7
+    }
+  ]
+}

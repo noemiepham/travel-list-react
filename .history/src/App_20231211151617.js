@@ -29,11 +29,9 @@ export default function App() {
     );
   }
   const handleDelete = async (id) => {
-    await fetch("http://localhost:9000/notes/" + id, {
+    await fetch("http://localhost:8000/notes/" + id, {
       method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => console.log("delete: ", data));
+    });
     console.log("delet", items);
     const newItem = items.filter((item) => item.id !== id);
     setItems(newItem);
@@ -42,7 +40,7 @@ export default function App() {
   return (
     <div className="App">
       <Logo />
-      <Form handleAddItems={handleAddItems} />
+      <Form />
       <PackingList
         items={items}
         onToggleItem={handleToggleItem}
@@ -60,13 +58,12 @@ const isFormValid = (item) => {
   return item.description;
 };
 function Form({ handleAddItems }) {
-  const initialFormState = {
+  const [notes, setNotes] = useState({
     id: undefined,
     description: "",
-    quantity: 1,
+    quantity: 0,
     packed: false,
-  };
-  const [notes, setNotes] = useState(initialFormState);
+  });
   //  const [description, setDescription] = useState("");
   //const [quantity, setQuantity] = useState(1);
 
@@ -82,11 +79,8 @@ function Form({ handleAddItems }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(notes),
       })
-        .then((res) => res.json())
-        .then((item) => {
-          handleAddItems(item);
-          setNotes(initialFormState);
-        });
+        .then((res) => console.log(res.json()))
+        .then(set);
     }
     /* 
     const newItem = { description, quantity, packed: false, id: Date.now() };
@@ -118,7 +112,7 @@ function Form({ handleAddItems }) {
           setNotes({ ...notes, description: event.target.value })
         }
       />
-      <button type="submit">Add</button>
+      <button>Add</button>
     </form>
   );
 }
